@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  chatbot:
+    build:
+      context: .
+    image: chatbot:v1.0
+    container_name: chatbot
+    ports:
+      - "8599:8599"
+    env_file:
+      - .env
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    volumes:
+      - .:/main
+    command: streamlit run src/main.py --server.port=8599 --server.address=0.0.0.0
